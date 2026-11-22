@@ -1,0 +1,68 @@
+# Dùng extension REST Client của VS Code hoặc chuyển các request sang Postman.
+@baseUrl = http://localhost:3002
+@token = YOUR_ACCESS_TOKEN
+@orderId = 1
+@itemId = 1
+
+### Health / MySQL
+GET {{baseUrl}}/health
+
+### Tạo đơn (thay ID sản phẩm theo Product Service)
+POST {{baseUrl}}/orders
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "customer_name": "Nguyễn Văn An",
+  "customer_email": "an@example.com",
+  "items": [{ "product_id": 1, "quantity": 2 }]
+}
+
+### Danh sách đơn
+GET {{baseUrl}}/orders
+Authorization: Bearer {{token}}
+
+### Chi tiết đơn
+GET {{baseUrl}}/orders/{{orderId}}
+Authorization: Bearer {{token}}
+
+### Thêm mặt hàng (sản phẩm khác với mặt hàng đã có)
+POST {{baseUrl}}/order_items
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"order_id": {{orderId}}, "product_id": 2, "quantity": 1}
+
+### Danh sách mặt hàng
+GET {{baseUrl}}/order_items
+Authorization: Bearer {{token}}
+
+### Lọc theo đơn
+GET {{baseUrl}}/order_items?order_id={{orderId}}
+Authorization: Bearer {{token}}
+
+### Chi tiết mặt hàng
+GET {{baseUrl}}/order_items/{{itemId}}
+Authorization: Bearer {{token}}
+
+### Cập nhật mặt hàng khi đơn pending
+PUT {{baseUrl}}/order_items/{{itemId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"quantity": 3}
+
+### Xóa mặt hàng khi đơn pending
+DELETE {{baseUrl}}/order_items/{{itemId}}
+Authorization: Bearer {{token}}
+
+### Hoàn thành đơn (cần còn ít nhất một mặt hàng)
+PUT {{baseUrl}}/orders/{{orderId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"status": "completed"}
+
+### Xóa đơn và toàn bộ mặt hàng liên quan
+DELETE {{baseUrl}}/orders/{{orderId}}
+Authorization: Bearer {{token}}
