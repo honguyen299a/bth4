@@ -1,5 +1,7 @@
 # Dịch vụ quản lý đơn hàng — Node.js + MySQL
 
+Dự án có thêm **Report Service độc lập ở cổng 3003, database riêng `report_service`**: xem [hướng dẫn dịch vụ báo cáo](REPORT-SERVICE.md) để chạy và sử dụng API thống kê tồn kho, hàng bán, doanh thu, chi phí và lợi nhuận theo sản phẩm/đơn hàng.
+
 Order Service độc lập tại **http://localhost:3002**, database MySQL riêng `order_service`. Dùng Node.js 22+, Express 5, mysql2 và MySQL 8.0.16+ (khuyến nghị 8.4). Không truy vấn database của Auth Service hoặc Product Service.
 
 ## Cài đặt và chạy
